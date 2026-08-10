@@ -2,7 +2,7 @@
 dataset_builder.py
 
 Purpose:
-Builds dataset_v1.json by coordinating
+Builds dataset_v2.json by coordinating
 all ingestion modules.
 """
 
@@ -42,10 +42,14 @@ class DatasetBuilder:
 
             dataset.append(data)
 
+        # --------------------------------
+        # Dataset V2 Output
+        # --------------------------------
+
         output_path = (
             Path("data")
             / "raw"
-            / "dataset_v1.json"
+            / "dataset_v2.json"
         )
 
         DatasetWriter.save_json(
@@ -53,4 +57,6 @@ class DatasetBuilder:
             output_path
         )
 
-        print(f"\nCollected {len(dataset)} Pull Requests")
+        print(
+            f"\nCollected {len(dataset)} Pull Requests"
+        )
