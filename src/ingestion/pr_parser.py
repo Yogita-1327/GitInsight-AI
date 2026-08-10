@@ -10,6 +10,7 @@ from src.ingestion.extractors.file_extractor import FileExtractor
 from src.ingestion.extractors.diff_extractor import DiffExtractor
 from src.ingestion.extractors.review_extractor import ReviewExtractor
 from src.ingestion.extractors.timeline_extractor import TimelineExtractor
+from src.ingestion.extractors.issue_extractor import IssueExtractor
 
 
 class PRParser:
@@ -64,6 +65,12 @@ class PRParser:
         # --------------------------------
 
         timeline_data = TimelineExtractor.extract(pr)
+
+        # --------------------------------
+        # Issue Intelligence
+        # --------------------------------
+
+        issue_data = IssueExtractor.extract(pr)
 
         # --------------------------------
         # Dataset Row
@@ -249,7 +256,26 @@ class PRParser:
             timeline_data["review_count"],
 
             "timeline_comment_count":
-            timeline_data["comment_count"]
+            timeline_data["comment_count"],
+
+            # ============================
+            # Issue Intelligence
+            # ============================
+
+            "linked_issue_count":
+            issue_data["linked_issue_count"],
+
+            "open_linked_issue_count":
+            issue_data["open_linked_issue_count"],
+
+            "closed_linked_issue_count":
+            issue_data["closed_linked_issue_count"],
+
+            "linked_issue_numbers":
+            issue_data["linked_issue_numbers"],
+
+            "linked_issues":
+            issue_data["linked_issues"]
 
         }
 
