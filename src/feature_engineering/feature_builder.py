@@ -141,8 +141,7 @@ class FeatureBuilder:
             "open_linked_issue_count":
                 open_linked_issue_count,
 
-            "closed_linked_issue_count":
-                closed_linked_issue_count,
+           
 
             "issue_density":
                 issue_density

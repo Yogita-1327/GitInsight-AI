@@ -2,14 +2,12 @@
 target_builder.py
 
 Purpose:
-Create the ML target from post-PR review outcomes.
+Creates the binary review-friction target for GitInsight-AI.
 
-The target represents review friction/risk.
-Outcome fields used here must NOT be used
-as prediction features.
+Target:
+0 -> No significant review friction
+1 -> Review friction detected
 """
-
-import math
 
 
 class TargetBuilder:
@@ -30,15 +28,19 @@ class TargetBuilder:
         )
 
         # --------------------------------
-        # Review Friction Score
+        # Review Friction Target
         # --------------------------------
+        #
+        # A PR is considered to have
+        # review friction if meaningful
+        # review-related friction signals exist.
 
-        friction_score = (
-            change_requests
-            + review_cycles
-            + math.log1p(review_comments)
+        review_friction = (
+            change_requests > 0
+            or review_cycles > 0
+            or review_comments > 0
         )
 
         return {
-            "review_friction_score": friction_score
+            "review_friction": int(review_friction)
         }
