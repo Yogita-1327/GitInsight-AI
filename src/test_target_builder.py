@@ -1,3 +1,10 @@
+"""
+test_target_builder.py
+
+Purpose:
+Test the binary review-friction target.
+"""
+
 import json
 import pandas as pd
 
@@ -21,62 +28,48 @@ with open(
 # Build Targets
 # --------------------------------
 
-rows = []
+targets = []
 
 for pr in dataset:
 
     target = TargetBuilder.build(pr)
 
-    rows.append(target)
+    targets.append(
+        target["review_friction"]
+    )
 
 
-df = pd.DataFrame(rows)
+df = pd.DataFrame({
+    "review_friction": targets
+})
 
 
 # --------------------------------
 # Display Results
 # --------------------------------
 
-print("\n===== TARGET AUDIT =====")
+print("\n===== REVIEW FRICTION TARGET =====")
 
 print(
-    "PR records:",
+    "Total PRs:",
     len(df)
 )
 
-print(
-    "\nReview friction statistics:"
-)
+print("\nTarget distribution:")
 
 print(
-    df["review_friction_score"].describe()
+    df["review_friction"]
+    .value_counts()
+    .sort_index()
 )
 
-print(
-    "\nUnique scores:",
-    df["review_friction_score"].nunique()
-)
+print("\nTarget percentages:")
 
 print(
-    "\nLowest scores:"
-)
-
-print(
-    df["review_friction_score"]
-    .sort_values()
-    .head(10)
-    .to_list()
-)
-
-print(
-    "\nHighest scores:"
-)
-
-print(
-    df["review_friction_score"]
-    .sort_values(
-        ascending=False
-    )
-    .head(10)
-    .to_list()
+    (
+        df["review_friction"]
+        .value_counts(normalize=True)
+        .sort_index()
+        * 100
+    ).round(2)
 )

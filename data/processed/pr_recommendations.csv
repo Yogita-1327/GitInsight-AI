@@ -1,0 +1,3 @@
+pr_index,risk_score,risk_level,recommendation
+93,31.272453,MEDIUM,No linked issue was detected; consider linking the relevant issue or requirement.
+93,31.272453,MEDIUM,Moderate review-friction risk detected; perform a focused review before merging.
