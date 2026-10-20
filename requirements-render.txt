@@ -1,0 +1,6 @@
+fastapi
+uvicorn[standard]
+pandas
+tabpfn==8.4.0
+PyGithub
+python-dotenv
